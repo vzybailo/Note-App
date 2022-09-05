@@ -6,24 +6,22 @@
                 <input placeholder="Write the title of the note" id="title" v-model="note.title" type="text">
             </label>
             </div>
-             <div class="new__note-priority">
-                <label for=""> Priority
-                    <select v-model="note.selected">
-                        <option disabled value="" >Select priority</option>
-                        <option 
-                            v-for='(priority, index) in priorities' 
-                            :key="index">
-                        {{ priority.name }}
-                        </option>
-                    </select>
-                </label>     
+            <div class="new__note-priority">
+                <select v-model="note.selected">
+                    <option disabled value="" >Select priority</option>
+                    <option 
+                        v-for='(priority, index) in priorities' 
+                        :key="index">
+                    {{ priority.name }}
+                    </option>
+                </select>    
             </div>
         </div>
-       <div class="new__note-text">
-            <label for="desc"> 
-                <textarea placeholder="Write a description" v-model="note.desc"></textarea>
-            </label>
-       </div>  
+        <div class="new__note-text">
+                <label for="desc"> 
+                    <textarea placeholder="Write a description" v-model="note.desc"></textarea>
+                </label>
+        </div>  
         <button class="btn bntPrimary" @click="addNote">New note</button>
     </div>
 </template>
@@ -31,19 +29,19 @@
 <script>
 
     export default {
-        data() {
-            return {
-                priorities: [
-                    {name: 'low'},
-                    {name: 'middle'},
-                    {name: 'high'}
-                ]
-            }
-        },
         props: {
             note: {
                 type: Object,
                 required: true
+            }
+        },
+        data() {
+            return {
+                priorities: [
+                    {alias: 'low', name: 'Low'},
+                    {alias: 'middle', name: 'Middle'},
+                    {alias: 'high', name: 'High'}
+                ]
             }
         },
         methods: {

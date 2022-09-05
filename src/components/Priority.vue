@@ -1,13 +1,13 @@
 <template>
     <div class="priority-msg">
-            {{ messagePriority }}
+            {{ priority }}
     </div>
 </template>
 
 <script>
     export default {
         props: {
-           messagePriority: {
+           priority: {
                 type: String,
                 required: true
             }

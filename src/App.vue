@@ -6,7 +6,7 @@
            <h2>{{ titleApp }}</h2>
           <!-- error message -->
           <message v-if="message" :message="message"/>
-          <messagepriority v-if="messagePriority" :messagePriority="messagePriority"/>
+          <priority v-if="priority" :priority="priority"/>
           <!-- new note -->
           <newnote
             :note="note"
@@ -45,11 +45,11 @@ import message from '@/components/Message.vue'
 import newnote from '@/components/NewNote.vue'
 import notes from '@/components/Notes.vue'
 import search from '@/components/Search.vue'
-import messagepriority from '@/components/MessagePriority.vue'
+import priority from '@/components/Priority.vue'
 
 export default {
   components: {
-    message, newnote, notes, search, messagepriority
+    message, newnote, notes, search, priority
   },
   data () {
     return {
@@ -57,18 +57,13 @@ export default {
       titleApp: 'Notes App',
       search: '',
       message: null,
-      messagePriority: null,
+      priority: null,
       selectedPriority: '',
       grid: true,
       note: {
           title: '',
           desc: '',
           selected: ''
-      },
-      priority: {
-        low: true,
-        middle: true,
-        high: true
       },
       notes: [
       {
@@ -116,7 +111,7 @@ export default {
           }
 
           if(this.note.selected == '') {
-            this.messagePriority = 'Priority can`t be blank'
+            this.priority = 'Priority can`t be blank'
             return false
           }
 
@@ -129,9 +124,9 @@ export default {
 
           this.note.title = ''
           this.note.desc = ''
-          this.note.selected = 'low'
+          this.note.selected = 'Low'
           this.message = null
-          this.messagePriority = null
+          this.priority = null
       },
       removeNote(index) {
         this.notes.splice(index, 1)

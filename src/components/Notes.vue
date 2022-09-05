@@ -1,7 +1,12 @@
 <template>
     <div class="notes">
         <div class="note" 
-            :class="{full: !grid, green: note.selected =='low', yellow: note.selected =='middle', red: note.selected =='high'}" 
+            :class="[
+                {full: !grid},
+                {green: note.selected =='Low'},
+                {yellow: note.selected =='Middle'},
+                {red: note.selected =='High'}
+            ]"        
             v-for="(note, index) in notes" :key="index">
             <div class="note-desc">
                 <div v-if="note.selected" class="note-label">
