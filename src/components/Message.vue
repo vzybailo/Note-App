@@ -1,6 +1,8 @@
 <template>
-    <div class="message">
-        <p>{{message}}</p>
+    <div class="message-error">
+        <div  class="message">
+            <p>{{message}}</p>
+        </div>
     </div>
 </template>
 

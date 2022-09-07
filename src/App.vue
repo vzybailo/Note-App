@@ -3,10 +3,11 @@
     <div class="wrapper-content">
       <section>
         <div class="container">
-           <h2>{{ titleApp }}</h2>
+           <h2 class="title">{{ titleApp }}</h2>
           <!-- error message -->
-          <message v-if="message" :message="message"/>
-          <priority v-if="priority" :priority="priority"/>
+          <message 
+            v-if="message" 
+            :message="message"/>
           <!-- new note -->
           <newnote
             :note="note"
@@ -45,11 +46,10 @@ import message from '@/components/Message.vue'
 import newnote from '@/components/NewNote.vue'
 import notes from '@/components/Notes.vue'
 import search from '@/components/Search.vue'
-import priority from '@/components/Priority.vue'
 
 export default {
   components: {
-    message, newnote, notes, search, priority
+    message, newnote, notes, search
   },
   data () {
     return {
@@ -57,13 +57,17 @@ export default {
       titleApp: 'Notes App',
       search: '',
       message: null,
-      priority: null,
-      selectedPriority: '',
+      priorityMsg: null,
       grid: true,
       note: {
           title: '',
           desc: '',
-          selected: ''
+          selected: '',
+          priorities: [
+            {alias: 'low', name: 'low'},
+            {alias: 'middle', name: 'middle'},
+            {alias: 'high', name: 'high'}
+        ],
       },
       notes: [
       {
@@ -111,7 +115,7 @@ export default {
           }
 
           if(this.note.selected == '') {
-            this.priority = 'Priority can`t be blank'
+            this.priorityMsg = 'Priority can`t be blank'
             return false
           }
 
@@ -124,9 +128,9 @@ export default {
 
           this.note.title = ''
           this.note.desc = ''
-          this.note.selected = 'Low'
+          this.note.selected = 'low'
           this.message = null
-          this.priority = null
+          this.priorityMsg = null
       },
       removeNote(index) {
         this.notes.splice(index, 1)
@@ -136,8 +140,8 @@ export default {
 </script>
 
 <style>
-        h2 {
-            font-size: 45px;
+        h2.title {
+            font-size: 30px;
             color: darkblue;
             margin-bottom: 25px;
             text-align: center;

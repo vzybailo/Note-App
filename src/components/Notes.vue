@@ -1,12 +1,7 @@
 <template>
     <div class="notes">
-        <div class="note" 
-            :class="[
-                {full: !grid},
-                {green: note.selected =='Low'},
-                {yellow: note.selected =='Middle'},
-                {red: note.selected =='High'}
-            ]"        
+        <div class="note"          
+            :class="[`${note.selected}`, {'full': !grid}]"
             v-for="(note, index) in notes" :key="index">
             <div class="note-desc">
                 <div v-if="note.selected" class="note-label">
@@ -32,9 +27,17 @@
             type: Array,
             required: true
         },
+        note: {
+            type: Array
+        },
         grid: {
             type: Boolean,
             required: true
+        }
+       },
+       data() {
+        return {
+            
         }
        },
        methods: {
@@ -124,13 +127,13 @@
             color: #999;
         }
     }
-    .yellow {
+    .middle {
         background-color: rgb(245, 245, 105);
     }
-    .green {
+    .low {
         background-color: rgb(97, 221, 97);
     }
-    .red {
+    .high {
         background-color: rgb(204, 67, 67);
     }
 </style>
