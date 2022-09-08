@@ -1,6 +1,6 @@
 <template>
     <div class="message-error">
-        <div  class="message">
+        <div class="message">
             <p>{{message}}</p>
         </div>
     </div>
@@ -10,8 +10,7 @@
     export default {
         props: {
             message: {
-                type: String,
-                required: true
+                type: String
             }
         }
     }

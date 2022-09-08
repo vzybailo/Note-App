@@ -112,10 +112,8 @@ export default {
           if (this.note.title == '') {
               this.message = 'Title can`t be blank!'
               return false
-          }
-
-          if(this.note.selected == '') {
-            this.priorityMsg = 'Priority can`t be blank'
+          } else if (this.note.selected == '') {
+            this.message = 'Priority can`t be blank'
             return false
           }
 
@@ -130,7 +128,6 @@ export default {
           this.note.desc = ''
           this.note.selected = 'low'
           this.message = null
-          this.priorityMsg = null
       },
       removeNote(index) {
         this.notes.splice(index, 1)
