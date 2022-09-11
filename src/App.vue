@@ -108,7 +108,7 @@ export default {
   methods: {
       addNote(){
           let {title, desc, selected} = this.note
-          
+
           if (this.note.title == '') {
               this.message = 'Title can`t be blank!'
               return false

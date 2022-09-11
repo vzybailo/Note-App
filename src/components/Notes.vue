@@ -1,6 +1,6 @@
 <template>
     <div class="notes">
-        <div class="note"          
+        <div class="note"
             :class="[`${note.selected}`, {'full': !grid}]"
             v-for="(note, index) in notes" :key="index">
             <div class="note-desc">
@@ -10,7 +10,11 @@
                 <p class="note-close" @click="removeNote">x</p>
             </div>
             <div class="note-header" :class="{full: !grid}">
-                <p>{{note.title}}</p>
+                <p v-show="!showInput" @click="editInput">{{note.title}}</p>
+                <input
+                    v-show="showInput"
+                    :showInput="!showInput"
+                    v-model="note.title">
             </div>
             <div class="note-body">
                 <p>{{note.desc}}</p>
@@ -37,12 +41,15 @@
        },
        data() {
         return {
-            
+          showInput: false
         }
        },
        methods: {
             removeNote(index) {
                 this.$emit('remove', index)
+            },
+            editInput () {
+                this.showInput[this.index] = true
             }
         }
     }
