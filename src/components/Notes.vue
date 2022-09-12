@@ -10,11 +10,7 @@
                 <p class="note-close" @click="removeNote">x</p>
             </div>
             <div class="note-header" :class="{full: !grid}">
-                <p v-show="!showInput" @click="editInput">{{note.title}}</p>
-                <input
-                    v-show="showInput"
-                    :showInput="!showInput"
-                    v-model="note.title">
+                <p v-show="!showInput">{{note.title}}</p>
             </div>
             <div class="note-body">
                 <p>{{note.desc}}</p>
@@ -47,9 +43,6 @@
        methods: {
             removeNote(index) {
                 this.$emit('remove', index)
-            },
-            editInput () {
-                this.showInput[this.index] = true
             }
         }
     }
