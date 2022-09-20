@@ -33,6 +33,7 @@
             :notes="notesFilter"
             :grid="grid"
             @remove="removeNote"
+           
           />
     
         </div>
@@ -66,24 +67,28 @@ export default {
           priorities: [
             {alias: 'low', name: 'low'},
             {alias: 'middle', name: 'middle'},
-            {alias: 'high', name: 'high'}
+            {alias: 'high', name: 'high'},
         ],
+        editable: false
       },
       notes: [
       {
           title: 'First note',
           desc: 'description for first note',
           date: new Date(Date.now()).toLocaleString(),
+          editable: false
       },
       {
           title: 'Second note',
           desc: 'description for second note',
           date: new Date(Date.now()).toLocaleString(),
+          editable: false
       },
       {
           title: 'Third note',
           desc: 'description for third note',
           date: new Date(Date.now()).toLocaleString(),
+          editable: false
       }
       ]
     }
@@ -107,7 +112,7 @@ export default {
   },
   methods: {
       addNote(){
-          let {title, desc, selected} = this.note
+          let {title, desc, selected, editable} = this.note
           
           if (this.note.title == '') {
               this.message = 'Title can`t be blank!'
@@ -121,7 +126,8 @@ export default {
               title,
               desc,
               date: new Date(Date.now()).toLocaleString(),
-              selected
+              selected,
+              editable
           })
 
           this.note.title = ''
@@ -130,7 +136,7 @@ export default {
           this.message = null
       },
       removeNote(index) {
-        this.notes.splice(index, 1)
+          this.notes.splice(index, 1)
       }
   }
 }

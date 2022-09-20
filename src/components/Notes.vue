@@ -1,8 +1,10 @@
 <template>
     <div class="notes">
         <div class="note"          
-            :class="[`${note.selected}`, {'full': !grid}]"
-            v-for="(note, index) in notes" :key="index">
+            :class="[`${note.selected}`, 
+            {'full': !grid}]"
+            v-for="(note, index) in notes" :key="index"
+            >
             <div class="note-desc">
                 <div v-if="note.selected" class="note-label">
                     {{note.selected}}
@@ -10,7 +12,19 @@
                 <p class="note-close" @click="removeNote">x</p>
             </div>
             <div class="note-header" :class="{full: !grid}">
-                <p>{{note.title}}</p>
+                <p
+                    v-if="!note.editable"
+                    @click="editTitle(note, index)">
+                    {{note.title}}  
+                    <span class="icon-edit">✎</span>     
+                </p>
+                <input
+                    class="note-title-edit"
+                    v-else
+                    v-model="note.title" 
+                    v-on:keyup.enter="saveTitle(index)"
+                    v-on:keyup.esc="cancelSave(note, index)"
+                    type="text">
             </div>
             <div class="note-body">
                 <p>{{note.desc}}</p>
@@ -36,13 +50,26 @@
         }
        },
        data() {
-        return {
-            
-        }
-       },
-       methods: {
+            return {
+                edited: false,
+                chachedTitle: ''
+            }
+        },
+        methods: {
             removeNote(index) {
                 this.$emit('remove', index)
+            },
+            editTitle(note, index) { 
+                this.cachedTitle = note.title
+                this.notes[index].editable = true
+            },
+            saveTitle(index) {
+                this.notes[index].editable = false
+            },
+            cancelSave(note, index) {
+                note.title = this.cachedTitle
+                this.notes[index].editable = false
+               
             }
         }
     }
@@ -105,6 +132,13 @@
         p {
             color: #402caf;
             font-size: 22px;
+            display: flex;
+
+            .icon-edit {
+                display: none;
+                margin-left: 5px;
+                font-size: 15px;
+            }
         }
         svg {
             color: #999;
@@ -116,6 +150,10 @@
             &:last-child {
                 margin-right: 0;
             }
+        }
+
+        p:hover .icon-edit {
+            display: block;
         }
     }
     .note-body {
@@ -135,5 +173,13 @@
     }
     .high {
         background-color: rgb(204, 67, 67);
+    }
+    input.note-title-edit {
+        border-radius: 0;
+        padding: 5px 16px 5px 3px;
+        font-size: 22px;
+        width: 80%;
+        margin-bottom: 0;
+        color: #402caf;
     }
 </style>
