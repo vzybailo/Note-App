@@ -68,7 +68,6 @@
             cancelSave(note, index) {
                 note.title = this.cachedTitle
                 this.notes[index].editable = false
-               
             }
         }
     }

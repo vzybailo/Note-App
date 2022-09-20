@@ -10,21 +10,21 @@
                 </div>
             </div>
             <div class="new__note-text">
-                    <label for="desc"> 
+                    <label for="desc">
                         Description
                         <textarea v-model="note.desc"></textarea>
                     </label>
-            </div>  
+            </div>
              <div class="new__note-priority">
                     Priority
                     <select v-model="note.selected">
                         <option disabled value="" >Select </option>
-                        <option 
-                            v-for='(priority, index) in note.priorities' 
+                        <option
+                            v-for='(priority, index) in note.priorities'
                             :key="index">
                         {{ priority.name }}
                         </option>
-                    </select>    
+                    </select>
             </div>
             <button class="btn bntPrimary">New note</button>
         </form>
