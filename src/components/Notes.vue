@@ -51,7 +51,6 @@
        },
        data() {
             return {
-                edited: false,
                 chachedTitle: ''
             }
         },
