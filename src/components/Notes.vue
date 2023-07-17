@@ -1,8 +1,8 @@
 <template>
     <div class="notes">
-        <div class="note"          
-            :class="[`${note.selected}`, 
-            {'full': !grid}]"
+        <div class="note"
+            :class="[`${note.selected}`,
+            {'full': !this.grid}]"
             v-for="(note, index) in notes" :key="index"
             >
             <div class="note-desc">
@@ -11,17 +11,17 @@
                 </div>
                 <p class="note-close" @click="removeNote">x</p>
             </div>
-            <div class="note-header" :class="{full: !grid}">
+            <div class="note-header" :class="{full: !this.grid}">
                 <p
                     v-if="!note.editable"
                     @click="editTitle(note, index)">
-                    {{note.title}}  
-                    <span class="icon-edit">✎</span>     
+                    {{note.title}}
+                    <span class="icon-edit">✎</span>
                 </p>
                 <input
                     class="note-title-edit"
                     v-else
-                    v-model="note.title" 
+                    v-model="note.title"
                     v-on:keyup.enter="saveTitle(index)"
                     v-on:keyup.esc="cancelSave(note, index)"
                     type="text">
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
     export default {
        props: {
         notes: {
@@ -43,22 +45,24 @@
         },
         note: {
             type: Array
-        },
-        grid: {
-            type: Boolean,
-            required: true
         }
        },
        data() {
             return {
-                chachedTitle: ''
+                chachedTitle: '',
+                message: null
             }
+        },
+        computed: {
+            ...mapState([
+              'grid'
+            ]),
         },
         methods: {
             removeNote(index) {
                 this.$emit('remove', index)
             },
-            editTitle(note, index) { 
+            editTitle(note, index) {
                 this.cachedTitle = note.title
                 this.notes[index].editable = true
             },

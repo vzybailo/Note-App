@@ -3,7 +3,7 @@
         <form @submit.prevent="addNote">
             <div class="new__note-header">
                 <div class="new__note-title">
-                    <label for="title"> 
+                    <label for="title">
                         Title
                         <input id="title" v-model="note.title" type="text">
                     </label>
