@@ -2,7 +2,7 @@
     <div class="notes">
         <div class="note"
             :class="[`${note.selected}`,
-            {'full': !this.grid}]"
+            {'full': !grid}]"
             v-for="(note, index) in notes" :key="index"
             >
             <div class="note-desc">
@@ -11,7 +11,7 @@
                 </div>
                 <p class="note-close" @click="removeNote">x</p>
             </div>
-            <div class="note-header" :class="{full: !this.grid}">
+            <div class="note-header" :class="{full: !grid}">
                 <p
                     v-if="!note.editable"
                     @click="editTitle(note, index)">
@@ -35,16 +35,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapState } from 'vuex'
     export default {
        props: {
-        notes: {
-            type: Array,
-            required: true
-        },
-        note: {
-            type: Array
+        grid: {
+            type: Boolean
         }
        },
        data() {
@@ -52,11 +47,6 @@ import { mapState } from 'vuex';
                 chachedTitle: '',
                 message: null
             }
-        },
-        computed: {
-            ...mapState([
-              'grid'
-            ]),
         },
         methods: {
             removeNote(index) {
@@ -73,6 +63,12 @@ import { mapState } from 'vuex';
                 note.title = this.cachedTitle
                 this.notes[index].editable = false
             }
+        },
+        computed: {
+            ...mapState([
+                'note',
+                'notes'
+            ]),
         }
     }
 </script>

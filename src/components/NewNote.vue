@@ -32,18 +32,21 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex';
     export default {
-        props: {
-            note: {
-                type: Object,
-                required: true
-            }
-        },
+        // props: {
+        //     note: {
+        //         type: Object,
+        //         required: true
+        //     }
+        // },
         methods: {
             addNote() {
                 this.$emit('addNote', this.note, this.selected)
             }
+        },
+        computed: {
+            ...mapState ( ['note'] )
         }
     }
 </script>

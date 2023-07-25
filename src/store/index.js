@@ -11,13 +11,44 @@ export default new Vuex.Store({
         message: null,
         priorityMsg: null,
         grid: true,
+        note: {
+            title: '',
+            desc: '',
+            selected: '',
+            priorities: [
+              {alias: 'low', name: 'low'},
+              {alias: 'middle', name: 'middle'},
+              {alias: 'high', name: 'high'},
+          ],
+          editable: false
+        },
+        notes: [
+        {
+            title: 'First note',
+            desc: 'description for first note',
+            date: new Date(Date.now()).toLocaleString(),
+            editable: false
+        },
+        {
+            title: 'Second note',
+            desc: 'description for second note',
+            date: new Date(Date.now()).toLocaleString(),
+            editable: false
+        },
+        {
+            title: 'Third note',
+            desc: 'description for third note',
+            date: new Date(Date.now()).toLocaleString(),
+            editable: false
+        }
+        ]
     },
     mutations: {
         setMes(state, payload) {
             state.message = payload
         },
-        setGrid(state) {
-            state.grid
+        setGrid(state, newValue) {
+            state.grid = newValue
         }
     },
     actions: {
@@ -26,7 +57,8 @@ export default new Vuex.Store({
             commit ('setMes', mes)
         },
         setGrid({commit}) {
-            commit ('setGrid')
+            const newValue = false
+            commit ('setGrid', newValue)
         }
     },
     getters: {
