@@ -10,7 +10,7 @@
             :message="this.message"/>
           <!-- new note -->
           <newnote
-            :note="note"
+            :note="this.note"
             @addNote="addNote"
           />
           <div class="note-header" style="margin: 26px">
@@ -24,7 +24,7 @@
             />
             <!-- icons controls -->
             <div class="icons">
-              <svg :class="{active: grid}" @click="grid=true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <svg :class="{active: this.setGrid()}" @click="grid=true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
               <svg :class="{active: !grid}" @click="grid=false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
             </div>
           </div>
@@ -45,7 +45,7 @@ import newnote from '@/components/NewNote.vue'
 import notes from '@/components/Notes.vue'
 import search from '@/components/Search.vue'
 
-import { mapState, mapGetters, mapActions  } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   components: {
@@ -53,8 +53,7 @@ export default {
   },
   data () {
     return {
-      grid: true,
-
+      //grid: true,
     }
   },
   computed: {
@@ -63,9 +62,9 @@ export default {
       'titleApp',
       'search',
       'message',
-      'priorityMsg',
       'note',
-      'notes'
+      'notes',
+      'grid'
     ]),
     notesFilter() {
       let array = this.notes,
@@ -82,17 +81,23 @@ export default {
         // eror
         return array
     },
-   
   },
   methods: {
-      addNote(){
+    ...mapMutations([
+      'setMes',
+      'setPriorMes',
+      'setClearMes',
+      'setGrid'
+    ]),
+      addNote () {
+        console.log(this.grid)
           let {title, desc, selected, editable} = this.note
           if (this.note.title == '') {
-              this.message = 'Title can`t be blank!'
+              this.setMes()
               return false
           } else if (this.note.selected == '') {
-            this.message = 'Priority can`t be blank'
-            return false
+              this.setPriorMes()
+              return false
           }
 
           this.notes.push({
@@ -106,7 +111,7 @@ export default {
           this.note.title = ''
           this.note.desc = ''
           this.note.selected = 'low'
-          this.message = null
+          this.setClearMes()
       },
       removeNote(index) {
           this.notes.splice(index, 1)

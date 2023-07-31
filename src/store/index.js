@@ -8,9 +8,8 @@ export default new Vuex.Store({
         title: 'Notes list',
         titleApp: 'Notes App',
         search: '',
-        message: null,
-        priorityMsg: null,
-        grid: true,
+        message: '',
+        grid: undefined,
         note: {
             title: '',
             desc: '',
@@ -44,29 +43,21 @@ export default new Vuex.Store({
         ]
     },
     mutations: {
-        setMes(state, payload) {
-            state.message = payload
+        setMes(state) {
+            state.message = 'Title can`t be blank!'
         },
-        setGrid(state, newValue) {
-            state.grid = newValue
+        setPriorMes(state) {
+            state.message = 'Priority can`t be blank'
+        },
+        setClearMes(state) {
+            state.message = ''
+        },
+        setGrid(state) {
+            state.grid = true
         }
     },
     actions: {
-        setMes({commit}) {
-            let mes = 'Hi guy'
-            commit ('setMes', mes)
-        },
-        setGrid({commit}) {
-            const newValue = false
-            commit ('setGrid', newValue)
-        }
     },
     getters: {
-        getMes (state) {
-            return state.message
-        },
-        getGrid (state) {
-            return state.grid
-        }
     }
 })

@@ -37,15 +37,24 @@
 <script>
 import { mapState } from 'vuex'
     export default {
-       props: {
-        grid: {
-            type: Boolean
-        }
-       },
-       data() {
+        props: {
+            grid: {
+                type: Boolean
+            }
+        },
+        data() {
             return {
                 chachedTitle: '',
                 message: null
+            }
+        },
+        computed: {
+            ...mapState([
+                'note',
+                'notes'
+            ]),
+            noteSelect (note) {
+                this.note.selected
             }
         },
         methods: {
@@ -63,12 +72,6 @@ import { mapState } from 'vuex'
                 note.title = this.cachedTitle
                 this.notes[index].editable = false
             }
-        },
-        computed: {
-            ...mapState([
-                'note',
-                'notes'
-            ]),
         }
     }
 </script>
